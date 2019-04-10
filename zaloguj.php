@@ -22,47 +22,50 @@
 			
 			$login = $_POST['login'];
 			$haslo = $_POST ['haslo'];
-			$aktiv = $_POST['aktiv'];
+			//$aktiv = $_POST['role'];
 			
 			$login = htmlentities($login, ENT_QUOTES, "UTF-8"); // funckcja bezpieczenstwa
-			//$login = htmlentities($haslo, ENT_QUOTES, "UTF-8"); // funckcja bezpieczenstwa //niepotrzebne bo zahaszowane
+			$haslo = htmlentities($haslo, ENT_QUOTES, "UTF-8"); // funckcja bezpieczenstwa //niepotrzebne bo zahaszowane
 	
 			
 			
 			if($rezultat = @$polaczenie->query(
-			sprintf("SELECT * FROM users WHERE nick='%s' AND aktiv=1", //??? dopisane do  weryfikacji konta aktiv
-			mysqli_real_escape_string($polaczenie,$login))))      // funckcja bezpieczenstwa
+			sprintf("SELECT * FROM users WHERE username='%s'", // AND role=0, //??? dopisane do  weryfikacji konta aktiv
+			mysqli_real_escape_string($polaczenie,$login))))   // funckcja bezpieczenstwa
 			//mysqli_real_escape_string($polaczenie,$haslo))))	// funckcja bezpieczenstwa// hashowanie
 			{
 				$ilu_userow = $rezultat->num_rows;
 				if($ilu_userow>0)
 				{
 					$wiersz = $rezultat->fetch_assoc();
-					if(password_verify($haslo, $wiersz['haslo'])) 
+					if(password_verify($haslo, $wiersz['password']))
 					{
 					
-						$_SESSION['zalogowany']=true;
+						$_SESSION['zalogowany']= true;
 						$_SESSION['id'] = $wiersz['id'];
-						$_SESSION['user'] = $wiersz['nick'];
-						$_SESSION['username'] = $wiersz['username'];
-						$_SESSION['mail'] = $wiersz['mail'];
-						$_SESSION['aktiv'] = $wiersz['aktiv']; // dopisane do aktiv konto
+						$_SESSION['login'] = $wiersz['username'];
+						$_SESSION['email'] = $wiersz['email'];
+						//$_SESSION['aktiv'] = $wiersz['role']; // dopisane do aktiv konto
 						
 						//echo user;
 						unset($_SESSION['blad']);
 						$rezultat->free_result();
-						header('Location:gra.php '); // lokalizacja strony
+						echo "udało sie";
+						header('Location: index2.php'); // lokalizacja strony index2.php
 					}
 					else
 					{
-						$_SESSION['blad'] = '<span style = "color:red"> Nieprawidlowy login, haslo lub brak aktywacji konta!</span>';
+						$_SESSION['blad'] = '<span style = "color:red"> NNNieprawidlowy login, haslo lub brak aktywacji konta!
+                        </span>';
 						header('Location: index.php');
+						echo "login : ".$_SESSION['login'];
+						echo "haslo : ".$_SESSION['haslo'];
 					}
 				}
 				else
 				{
 					$_SESSION['blad'] = '<span style = "color:red"> Nieprawidlowy login, haslo lub brak aktywacji konta!</span>';
-					header('Location: index.php');
+					header('Location:index.php');
 				}
 			}
 

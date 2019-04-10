@@ -2,9 +2,12 @@
 
 session_start();
 
+?>
+
+<?php
 if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalagowany'] == true))
 {
-    //header('Location: .php');
+    header('Location: index2.php');
     exit();
 }
 
@@ -45,6 +48,15 @@ foreach($dbh->query('SELECT * from products') as $row) {
       hasło:<input type="password" name="haslo"/> <br/>
       <input type="submit" value="Zaloguj się"/>
   </form>
+
+  <?php
+  if(isset($_SESSION['blad'])) echo $_SESSION['blad'];
+  ?>
+
+
+
+
+
   <a href="rejestracja.php">Rejestracja</a>
 
     <div class="container">

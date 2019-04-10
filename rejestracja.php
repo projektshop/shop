@@ -5,10 +5,11 @@ if(isset($_POST['email'])) {
     $wszystko_OK = true;
 //sprawdzenie usernama
     $username = $_POST['username'];
+
 //sprawdzenie dlugosci usernama
     if ((strlen($username) < 3) || (strlen($username) > 20)) {
         $wszystko_OK = false;
-        $_SESSION['e_imie'] = "imie musi posiadać od 3 do 20 znaków!";
+        $_SESSION['e_username'] = "imie musi posiadać od 3 do 20 znaków!";
 
     }
 
@@ -19,15 +20,6 @@ if(isset($_POST['email'])) {
 
     if (isset($_POST['email'])) {
         $wszystko_OK = true;
-        //sprawdzenie nika
-
-
-        //sprawdzenie dlugosci username
-        if ((strlen($username) < 3) || (strlen($username) > 20)) {
-            $wszystko_OK = false;
-            $_SESSION['e_username'] = "username musi posiadać od 3 do 20 znaków!";
-
-        }
 
 
         // sprawdz poprawność e-mail
@@ -44,13 +36,15 @@ if(isset($_POST['email'])) {
         $haslo2 = $_POST['haslo2'];
 
 
-        If ((strlen($haslo1) <= 4) || (strlen($haslo1 > 20))) {
-            $wszystko_OK = false;
-            $_SESSION['e_haslo'] = "haslo moze miec od 4 do 20 znaków";
+        If((strlen($haslo1)<=2) || (strlen($haslo1>20)))
+        {
+            $wszystko_OK=false;
+            $_SESSION['e_haslo']="haslo moze miec od 2 do 20 znaków";
         }
-        if ($haslo1 != $haslo2) {
-            $wszystko_OK = false;
-            $_SESSION['e_haslo'] = "Podane hasła nie są identyczne";
+        if($haslo1!=$haslo2)
+        {
+            $wszystko_OK=false;
+            $_SESSION['e_haslo']="Podane hasła nie są identyczne";
         }
 
         $haslo_hash = password_hash($haslo1, PASSWORD_DEFAULT);
@@ -113,7 +107,7 @@ if(isset($_POST['email'])) {
                 if ($wszystko_OK == true) {
                     //wszystkie testy zakończone, dodajemy usera do bazy
 
-                    if ($polaczenie->query("INSERT INTO users VALUES (NULL, '$username', '$email', '$haslo_hash', NULL , 0 , '$klucz')")) {
+                    if ($polaczenie->query("INSERT INTO users VALUES (NULL, '$email', '$username', '$haslo_hash', NULL , 0 , '$klucz')")) {
                         $_SESSION['udanarejestracja'] = true;
                         header('Location: witamy.php');
                         require 'PHPMailer/PHPMailerAutoload.php';
@@ -208,7 +202,7 @@ if(isset($_POST['email'])) {
 
 	<form method="post">
 
-	Imie: <br/> <input type="text" name="username" /> <br />
+	Name: <br/> <input type="text" name="username" /> <br />
 
 	<?php
 
@@ -259,7 +253,7 @@ if(isset($_POST['email'])) {
 	}
 
 	?>
-
+<!--
 	<div class="g-recaptcha" data-sitekey="6Lea_BkUAAAAACbNRwhbpqjCmKQxzu2cxCZ_63cg"></div>
 
 	<?php
@@ -271,7 +265,7 @@ if(isset($_POST['email'])) {
 	}
 
 	?>
-
+-->
 	<br/>
 	<input type="submit" value="Zarejestruj sie" />
 
