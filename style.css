@@ -3,3 +3,6 @@ body
 	background-color: #303030;
 	color: #ffffff;
 }
+li{
+	list-style-type: none;
+}
