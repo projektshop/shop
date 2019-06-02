@@ -1,0 +1,39 @@
+body {
+    background-color: #303030;
+    color: #ffffff;
+}
+li {
+    list-style-type: none;
+}
+.card-body {
+    color: #000;
+}
+.card-body .actions input {
+    width: 10%;
+    margin-left: 1rem;
+}
+#search + .btn {
+    margin-top: .5rem;
+}
+
+/** Helpers */
+.mt-100 {
+    margin-top: 100px;
+}
+.mb-30 {
+    margin-bottom: 30px;
+}
+.mr-15 {
+    margin-right: 15px;
+}
+.hidden {
+    display: none;
+}
+
+/** Cart */
+.cart-preview {
+    height: 100px;
+    width: 100px;
+    max-height: 100px;
+    max-width: 100px;
+}
