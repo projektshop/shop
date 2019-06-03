@@ -5,19 +5,19 @@ if(isset($_POST['email'])) {
     $wszystko_OK = true;
 //sprawdzenie usernama
     $username = $_POST['username'];
-
+    $address= $_POST['address'];
 //sprawdzenie dlugosci usernama
     if ((strlen($username) < 3) || (strlen($username) > 20)) {
         $wszystko_OK = false;
         $_SESSION['e_username'] = "imie musi posiadać od 3 do 20 znaków!";
 
     }
-
-    if (ctype_alnum($username) == false) {
-        $_wszystko_OK = false;
-        $_SESSION['e_username'] = "username może skladać się tylko z liter i cyfr bez polskich znaków";
-    }
-
+    /*
+        if (ctype_alnum($username) == false) {
+            $_wszystko_OK = false;
+            $_SESSION['e_username'] = "username może skladać się tylko z liter i cyfr bez polskich znaków";
+        }
+    */
     if (isset($_POST['email'])) {
         $wszystko_OK = true;
 
@@ -107,7 +107,7 @@ if(isset($_POST['email'])) {
                 if ($wszystko_OK == true) {
                     //wszystkie testy zakończone, dodajemy usera do bazy
 
-                    if ($polaczenie->query("INSERT INTO users VALUES (NULL, '$email', '$username', '$haslo_hash', NULL , 0 , '$klucz')")) {
+                    if ($polaczenie->query("INSERT INTO users VALUES ( '$email', '$username', '$haslo_hash', $address ,  'user')")) {
                         $_SESSION['udanarejestracja'] = true;
                         header('Location: witamy.php');
                         require 'PHPMailer/PHPMailerAutoload.php';
@@ -126,7 +126,7 @@ if(isset($_POST['email'])) {
                         $mail->Port = 587;                                    // TCP port to connect to
 
                         $mail->setFrom('noreplay@k.lapy.pl', 'Mailer');
-                        $mail->addAddress($email, $nick);     // Add a recipient // tu zmienialem
+                        $mail->addAddress($email, $username);     // Add a recipient // tu zmienialem
                         $mail->addAddress();               // Name is optional
                         $mail->addReplyTo('g8824@wp.pl', 'Information');
                         $mail->addCC('cc@example.com');
@@ -177,22 +177,26 @@ if(isset($_POST['email'])) {
 <html lang="pl">
 
 <head>
-	<meta charset="utf-8"/>
-	<meta http=equiv="X-UA-Compatible" content=IE=edge, chrome=1"/>
-	<title> rejestracja </title>
-	<script src='https://www.google.com/recaptcha/api.js'></script>
+    <meta charset="utf-8"/>
+    <meta http=equiv="X-UA-Compatible" content=IE=edge, chrome=1"/>
+    <title> rejestracja </title>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 
-	<style>
+    <style>
 
-		.error
-		{
-			color:red;
-			margin-top: 10px;
-			margin-bottom: 10px;
-		}
+        .error
+        {
+            color:red;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
 
-
-	</style>
+        form{
+            position: absolute;
+            top: 100px;
+            left:40%;
+        }
+    </style>
 
 
 </head>
@@ -200,76 +204,76 @@ if(isset($_POST['email'])) {
 
 <body>
 
-	<form method="post">
+<form method="post">
 
-	Name: <br/> <input type="text" name="username" /> <br />
+    Name: <br/> <input type="text" name="username" /> <br />
+    Address: <br/> <input type="text" name="address" /> <br />
+    <?php
 
-	<?php
+    if(isset($_SESSION['e_username']))
+    {
+        echo'<div class="error">'.$_SESSION['e_username'].'</div>';
+        unset($_SESSION['e_username']);
+    }
 
-	if(isset($_SESSION['e_username']))
-	{
-	echo'<div class="error">'.$_SESSION['e_username'].'</div>';
-	unset($_SESSION['e_username']);
-	}
+    ?>
 
-	?>
+    E-mail: <br/> <input type="text" name="email" /> <br/>
 
-	E-mail: <br/> <input type="text" name="email" /> <br/>
+    <?php
 
-	<?php
+    if(isset($_SESSION['e_email']))
+    {
+        echo'<div class="error">'.$_SESSION['e_email'].'</div>';
+        unset($_SESSION['e_email']);
+    }
 
-	if(isset($_SESSION['e_email']))
-	{
-	echo'<div class="error">'.$_SESSION['e_email'].'</div>';
-	unset($_SESSION['e_email']);
-	}
-
-	?>
+    ?>
 
 
-	Password: <br/> <input type="password" name="haslo1" /> <br/>
+    Password: <br/> <input type="password" name="haslo1" /> <br/>
 
-	<?php
+    <?php
 
-	if(isset($_SESSION['e_haslo']))
-	{
-	echo'<div class="error">'.$_SESSION['e_haslo'].'</div>';
-	unset($_SESSION['e_haslo']);
-	}
+    if(isset($_SESSION['e_haslo']))
+    {
+        echo'<div class="error">'.$_SESSION['e_haslo'].'</div>';
+        unset($_SESSION['e_haslo']);
+    }
 
-	?>
+    ?>
 
-	Powtorz Password: <br/> <input type="password" name="haslo2" /> <br/>
+    Powtorz Password: <br/> <input type="password" name="haslo2" /> <br/>
 
-	<label>
-	<input type="checkbox" name="regulamin"/> Akcpetuje regulamin </label>
+    <label>
+        <input type="checkbox" name="regulamin"/> Akceptuje regulamin </label>
 
-	<?php
+    <?php
 
-	if(isset($_SESSION['e_regulamin']))
-	{
-	echo'<div class="error">'.$_SESSION['e_regulamin'].'</div>';
-	unset($_SESSION['e_regulamin']);
-	}
+    if(isset($_SESSION['e_regulamin']))
+    {
+        echo'<div class="error">'.$_SESSION['e_regulamin'].'</div>';
+        unset($_SESSION['e_regulamin']);
+    }
 
-	?>
-<!--
+    ?>
+    <!--
 	<div class="g-recaptcha" data-sitekey="6Lea_BkUAAAAACbNRwhbpqjCmKQxzu2cxCZ_63cg"></div>
 
 	<?php
 
-	if(isset($_SESSION['e_bot']))
-	{
-	echo'<div class="error">'.$_SESSION['e_bot'].'</div>';
-	unset($_SESSION['e_bot']);
-	}
+    if(isset($_SESSION['e_bot']))
+    {
+        echo'<div class="error">'.$_SESSION['e_bot'].'</div>';
+        unset($_SESSION['e_bot']);
+    }
 
-	?>
+    ?>
 -->
-	<br/>
-	<input type="submit" value="Zarejestruj sie" />
+    <br/>
+    <input type="submit" value="Zarejestruj sie" />
 
-	</form>
+</form>
 
 
 <br />
