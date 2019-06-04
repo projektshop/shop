@@ -107,7 +107,7 @@ if(isset($_POST['email'])) {
                 if ($wszystko_OK == true) {
                     //wszystkie testy zakończone, dodajemy usera do bazy
 
-                    if ($polaczenie->query("INSERT INTO users VALUES ( '$email', '$username', '$haslo_hash', $address ,  'user')")) {
+                    if ($polaczenie->query("INSERT INTO users(email, username, password,address, role) VALUES ( '$email', '$username', '$haslo_hash', '$address' ,'user')")) {
                         $_SESSION['udanarejestracja'] = true;
                         header('Location: witamy.php');
                         require 'PHPMailer/PHPMailerAutoload.php';
@@ -162,6 +162,7 @@ if(isset($_POST['email'])) {
                 $polaczenie->close();
             }
         } catch (Exception $e) {
+            echo $e->getMessage();
             echo '<span style="color; red;">Blad serwera (serwer error), prosimy o rejestracje w innym czasie" </span>';
         }
 
@@ -207,7 +208,6 @@ if(isset($_POST['email'])) {
 <form method="post">
 
     Name: <br/> <input type="text" name="username" /> <br />
-    Address: <br/> <input type="text" name="address" /> <br />
     <?php
 
     if(isset($_SESSION['e_username']))
@@ -244,7 +244,7 @@ if(isset($_POST['email'])) {
     ?>
 
     Powtorz Password: <br/> <input type="password" name="haslo2" /> <br/>
-
+    Address: <br/> <input type="text" name="address" /> <br />
     <label>
         <input type="checkbox" name="regulamin"/> Akceptuje regulamin </label>
 
