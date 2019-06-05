@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 30 Mar 2019, 13:31
--- Wersja serwera: 10.1.34-MariaDB
--- Wersja PHP: 7.2.8
+-- Czas generowania: 05 Cze 2019, 10:46
+-- Wersja serwera: 10.1.40-MariaDB
+-- Wersja PHP: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -83,7 +83,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `password`, `address`, `role`) VALUES
-(1, 'admin@admin.pl', 'Administrator', '$2a$10$tieGy/JQdPyYmtdKFopqHuJWRGqJysuMwjuMvzW3S/tj/QHP0iDRe', NULL, 'admin');
+(1, 'admin@admin.pl', 'Administrator', '$2a$10$tieGy/JQdPyYmtdKFopqHuJWRGqJysuMwjuMvzW3S/tj/QHP0iDRe', NULL, 'admin'),
+(2, 'psobczyk@gmail.com', 'Piotr Sobczyk', '$2y$10$0uk3KGp8PSvVwiny291TvOUFrz1lq2mlydMgXlLzx1iOOX32mISJy', 'Al.Jana PawÅ‚a II', 'user'),
+(3, 'emalina@hotmail.com', 'Erik Malinowski', '$2y$10$TIUoFhUSw4gPRSOGHoXhG.obm9DPKTjsrxt4Qd396dnZfOcNZNaiC', 'Al.Jana PawÅ‚a II', 'user');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -129,7 +131,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Ograniczenia dla zrzutów tabel
