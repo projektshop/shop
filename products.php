@@ -5,7 +5,7 @@ session_start();
 
 ?>
 <?php
-if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany'] == true))
+if (!isset($_SESSION['zalogowany']) || ($_SESSION['zalogowany'] !== true))
 {
     header('Location: index2.php');
     exit();
