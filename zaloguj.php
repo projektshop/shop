@@ -51,7 +51,12 @@
 						unset($_SESSION['blad']);
 						$rezultat->free_result();
 						echo "udało sie";
-						header('Location: index2.php'); // lokalizacja strony index2.php
+                        if($wiersz['role'] == "admin")
+                            header('Location: admin.php');
+                        elseif($wiersz['role'] ==  'user')
+                            header('Location: index2.php');
+
+                       // header('Location: index2.php');
 					}
 					else
 					{
