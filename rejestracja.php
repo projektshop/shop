@@ -197,11 +197,7 @@ if(isset($_POST['email'])) {
             margin-bottom: 10px;
         }
 
-        form{
-            position: absolute;
-            top: 100px;
-            left:40%;
-        }
+        background-color:white;
     </style>
 
 
@@ -215,85 +211,91 @@ if(isset($_POST['email'])) {
             <div class="card card-signin my-5">
                 <div class="card-body">
                     <h5 class="card-title text-center">Rejestracja</h5>
-<form method="post">
-    <div class="form-label-group">
-    Name: <br/> <input type="text" name="username" class="form-control"/>  <br/>
-    </div>
-        <?php
+                    <form method="post">
+                        <div class="form-label-group">
+                            Name: <br/> <input type="text" name="username" class="form-control"/>  <br/>
+                        </div>
+                        <?php
 
-    if(isset($_SESSION['e_username']))
-    {
-        echo'<div class="error">'.$_SESSION['e_username'].'</div>';
-        unset($_SESSION['e_username']);
-    }
+                        if(isset($_SESSION['e_username']))
+                        {
+                            echo'<div class="error">'.$_SESSION['e_username'].'</div>';
+                            unset($_SESSION['e_username']);
+                        }
 
-    ?>
-    <div class="form-label-group">
-    E-mail: <br/> <input type="text" name="email" class="form-control"/>  <br/>
-    </div>
+                        ?>
+                        <div class="form-label-group">
+                            E-mail: <br/> <input type="text" name="email" class="form-control"/>  <br/>
+                        </div>
 
-    <?php
+                        <?php
 
-    if(isset($_SESSION['e_email']))
-    {
-        echo'<div class="error">'.$_SESSION['e_email'].'</div>';
-        unset($_SESSION['e_email']);
-    }
+                        if(isset($_SESSION['e_email']))
+                        {
+                            echo'<div class="error">'.$_SESSION['e_email'].'</div>';
+                            unset($_SESSION['e_email']);
+                        }
 
-    ?>
+                        ?>
 
-    <div class="form-label-group">
-    Password: <br/> <input type="password" name="haslo1" class="form-control" /> <br/>
-    </div>
-    <?php
+                        <div class="form-label-group">
+                            Password: <br/> <input type="password" name="haslo1" class="form-control" /> <br/>
+                        </div>
+                        <?php
 
-    if(isset($_SESSION['e_haslo']))
-    {
-        echo'<div class="error">'.$_SESSION['e_haslo'].'</div>';
-        unset($_SESSION['e_haslo']);
-    }
+                        if(isset($_SESSION['e_haslo']))
+                        {
+                            echo'<div class="error">'.$_SESSION['e_haslo'].'</div>';
+                            unset($_SESSION['e_haslo']);
+                        }
 
-    ?>
-    <div class="form-label-group">
-    Powtorz Password: <br/> <input type="password" name="haslo2" class="form-control" /> <br/>
-    </div>
-    <div class="form-label-group">
-    Address: <br/> <input type="text" name="address" class="form-control"/> <br />
-    </div>
-    <label>
-        <input type="checkbox" name="regulamin" class="form-control"/> Akceptuje regulamin </label>
+                        ?>
+                        <div class="form-label-group">
+                            Powtorz Password: <br/> <input type="password" name="haslo2" class="form-control" /> <br/>
+                        </div>
+                        <div class="form-label-group">
+                            Address: <br/> <input type="text" name="address" class="form-control"/> <br />
+                        </div>
+                        <div  class="col-sm-10 col-md-9">
+                            <div class="row">
 
-    <?php
+                                <label for="checkbox" >
 
-    if(isset($_SESSION['e_regulamin']))
-    {
-        echo'<div class="error">'.$_SESSION['e_regulamin'].'</div>';
-        unset($_SESSION['e_regulamin']);
-    }
+                                    <input type="checkbox" name="regulamin" style="margin-right:-70px"/>Akceptuje regulamin </label>
 
-    ?>
-    <!--
+                            </div>
+                        </div>
+                        <?php
+
+                        if(isset($_SESSION['e_regulamin']))
+                        {
+                            echo'<div class="error">'.$_SESSION['e_regulamin'].'</div>';
+                            unset($_SESSION['e_regulamin']);
+                        }
+
+                        ?>
+                        <!--
 	<div class="g-recaptcha" data-sitekey="6Lea_BkUAAAAACbNRwhbpqjCmKQxzu2cxCZ_63cg"></div>
 
 	<?php
 
-    if(isset($_SESSION['e_bot']))
-    {
-        echo'<div class="error">'.$_SESSION['e_bot'].'</div>';
-        unset($_SESSION['e_bot']);
-    }
+                        if(isset($_SESSION['e_bot']))
+                        {
+                            echo'<div class="error">'.$_SESSION['e_bot'].'</div>';
+                            unset($_SESSION['e_bot']);
+                        }
 
-    ?>
+                        ?>
 -->
-    <br/>
-    <input type="submit" value="Zarejestruj sie" class="btn  btn-primary"/>
+                        <br/>
+                        <input type="submit" value="Zarejestruj sie" class="btn  btn-primary"/>
 
-</form>
+                    </form>
                     <div class="card-body">
-              </div>
-          </div>
-    </div>
-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 
 </html>
